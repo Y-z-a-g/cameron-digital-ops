@@ -29,10 +29,12 @@
   100% { border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; }
 }
 
-.animate-drift {
-  animation: drift 20s infinite ease-in-out;
-}
+@media (min-width: 768px) {
+  .animate-drift {
+    animation: drift 20s infinite ease-in-out;
+  }
 
-.animate-morph {
-  animation: morph 15s infinite ease-in-out;
+  .animate-morph {
+    animation: morph 15s infinite ease-in-out;
+  }
 }

@@ -361,7 +361,7 @@ export default function App() {
       <main className="relative z-10 pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
-          <section id="hero" className="mb-12 md:mb-16 scroll-mt-32">
+          <section id="hero" className="md:min-h-[80vh] flex flex-col justify-center mb-12 md:mb-16 scroll-mt-32">
             <div className="max-w-4xl">
               <span className="text-[12px] uppercase tracking-[0.3em] font-bold text-indigo-400 mb-6 block">
                 Hello, My name is
@@ -384,37 +384,6 @@ export default function App() {
                   </RippleButton>
                 </a>
               </div>
-            </div>
-          </section>
-
-          {/* Martech Logo Grid */}
-          <section className="mb-16 md:mb-24 relative">
-            <div className="overflow-hidden py-4">
-              <motion.div
-                style={{ x: martechX }}
-                className="flex flex-nowrap gap-12 md:gap-24 items-center whitespace-nowrap px-4"
-              >
-                {/* Duplicate logos for a continuous feel if needed, but here we just use the scroll link */}
-                {martechLogos.map((logo) => (
-                  <div 
-                    key={logo.name}
-                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
-                  >
-                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
-                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
-                  </div>
-                ))}
-                {/* Second set for longer scroll range visibility */}
-                {martechLogos.map((logo) => (
-                  <div 
-                    key={`${logo.name}-2`}
-                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
-                  >
-                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
-                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
-                  </div>
-                ))}
-              </motion.div>
             </div>
           </section>
 
@@ -454,7 +423,7 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
                 transition={{ duration: isMobile ? 0 : 0.8 }}
-                className="relative order-1 lg:order-2 w-full max-w-[90%] lg:max-w-full mx-auto"
+                className="relative order-1 lg:order-2 w-full"
               >
                 <GlassContainer className="aspect-square flex items-center justify-center p-4 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-rose-500/10" />
@@ -469,6 +438,37 @@ export default function App() {
                     />
                   </div>
                 </GlassContainer>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Martech Logo Grid */}
+          <section className="mb-16 md:mb-24 relative">
+            <div className="overflow-hidden py-4">
+              <motion.div
+                style={{ x: martechX }}
+                className="flex flex-nowrap gap-12 md:gap-24 items-center whitespace-nowrap px-4"
+              >
+                {/* Duplicate logos for a continuous feel if needed, but here we just use the scroll link */}
+                {martechLogos.map((logo) => (
+                  <div 
+                    key={logo.name}
+                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
+                  >
+                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
+                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
+                  </div>
+                ))}
+                {/* Second set for longer scroll range visibility */}
+                {martechLogos.map((logo) => (
+                  <div 
+                    key={`${logo.name}-2`}
+                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
+                  >
+                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
+                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
+                  </div>
+                ))}
               </motion.div>
             </div>
           </section>

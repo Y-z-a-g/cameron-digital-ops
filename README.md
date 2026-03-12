@@ -1,20 +1,17 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Cameron Yzaguirre | Marketing Operations Portfolio
 
-# Run and deploy your AI Studio app
+A high-performance personal portfolio website designed to showcase digital marketing expertise, MarTech integrations, and data-driven strategy.
 
-This contains everything you need to run your app locally.
+## Tech Stack
+- **Frontend:** Vite + React
+- **Styling:** Tailwind CSS (Dark Mode focused)
+- **Forms:** Formspree Integration
+- **Deployment:** GitHub Pages / Vercel
 
-View your app in AI Studio: https://ai.studio/apps/39e79904-3369-43ff-beb7-5f8a9cf90ed8
+## Key Features
+- **Dynamic MarTech Bar:** A scroll-linked marquee showcasing core technical competencies.
+- **Responsive Design:** Optimized for seamless viewing across mobile and desktop devices.
+- **Modern UI:** Minimalist aesthetic with integrated scroll-reveal animations.
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+*Developed by Cameron Yzaguirre in collaboration with Google AI Studio*
