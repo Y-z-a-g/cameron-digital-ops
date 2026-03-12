@@ -362,7 +362,7 @@ export default function App() {
       <main className="relative z-10 pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
-          <section id="hero" className="min-h-[85vh] flex flex-col justify-center mb-12 md:mb-16 scroll-mt-32">
+          <section id="hero" className="min-h-[85svh] flex flex-col justify-center pb-32 md:pb-0 mb-12 md:mb-16 scroll-mt-32">
             <div className="max-w-4xl">
               <span className="text-[12px] uppercase tracking-[0.3em] font-bold text-indigo-400 mb-6 block">
                 Hello, My name is
@@ -432,12 +432,18 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-rose-500/10" />
                   <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-white/10">
                     <img 
-                      src="/portrait.webp" 
+                      src="./portrait.webp" 
                       alt="Cameron Yzaguirre - Marketing Operations Specialist" 
                       className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
                       referrerPolicy="no-referrer"
                       loading="eager"
                       fetchPriority="high"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (target.src.includes('./portrait.webp')) {
+                          target.src = '/portrait.webp';
+                        }
+                      }}
                     />
                   </div>
                 </GlassContainer>
