@@ -390,9 +390,9 @@ export default function App() {
 
           {/* About Section */}
           <section id="about" className="mb-32 md:mb-48 scroll-mt-32">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-16 items-center">
               {/* Mobile Header */}
-              <h2 className="lg:hidden text-4xl font-bold tracking-tighter mb-4">About Me</h2>
+              <h2 className="lg:hidden text-4xl font-bold tracking-tighter">About Me</h2>
 
               <motion.div
                 initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
@@ -409,10 +409,10 @@ export default function App() {
                     I enjoy collaborating with others to dig into data, understand trends, and use that information to guide effective strategies and achieve results.
                   </p>
                   <p>
-                    My career started at <span className="text-white font-medium">Visit Ventura</span>, where I advanced from supporting marketing/sales operations to the role of Content Specialist. In this position, I managed a wide range of digital marketing initiatives including driving social media growth, executing paid ad campaigns, producing multimedia content, and maintaining the website.
+                    My career started at <a href="https://visitventuraca.com/" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Visit Ventura</a>, where I advanced from supporting marketing/sales operations to the role of Content Specialist. In this position, I managed a wide range of digital marketing initiatives including driving social media growth, executing paid ad campaigns, producing multimedia content, and maintaining the website.
                   </p>
                   <p>
-                    Before that, I created <span className="text-white font-medium">Leafy Radio</span> from scratch. That experience taught me how important audience feedback is for making creative decisions. Now, I'm focused on improving my data analysis skills and exploring new digital platforms.
+                    Before that, I created <a href="https://www.youtube.com/@Leafyradio" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Leafy Radio</a> from scratch. That experience taught me how important audience feedback is for making creative decisions. Now, I'm focused on improving my data analysis skills and exploring new digital platforms.
                   </p>
                   <p className="italic text-white/50">
                     Outside of work, you'll usually find me outdoors running or hiking, usually with support from my black lab, Bailey.
@@ -428,13 +428,13 @@ export default function App() {
                 transition={{ duration: isMobile ? 0 : 0.8 }}
                 className="relative order-1 lg:order-2 w-full"
               >
-                <GlassContainer className="aspect-square flex items-center justify-center p-4 relative overflow-hidden">
+                <GlassContainer className="aspect-square relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-rose-500/10" />
-                  <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-white/10">
+                  <div className="absolute inset-3 z-10 rounded-2xl overflow-hidden border border-white/10">
                     <img 
                       src="./portrait.webp" 
                       alt="Cameron Yzaguirre - Marketing Operations Specialist" 
-                      className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
+                      className="w-full h-full object-cover opacity-70 grayscale hover:grayscale-0 transition-all duration-500"
                       referrerPolicy="no-referrer"
                       loading="eager"
                       fetchPriority="high"
