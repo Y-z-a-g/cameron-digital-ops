@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { 
   Github, 
   Linkedin, 
@@ -8,7 +8,15 @@ import {
   FileText,
   Briefcase,
   Youtube,
-  GraduationCap
+  GraduationCap,
+  Globe,
+  BarChart3,
+  Infinity,
+  Cloud,
+  PenTool,
+  CheckCircle2,
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 
 const GlassContainer = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
@@ -27,23 +35,33 @@ interface TimelineItemProps {
   isLast: boolean;
 }
 
-const TimelineItem: React.FC<TimelineItemProps> = ({ title, company, dates, description, tags, icon: Icon, isLast }) => (
-  <div className="relative pl-8 md:pl-12 pb-16">
-    {/* Vertical Line */}
-    {!isLast && <div className="absolute left-[19px] top-10 bottom-0 w-0.5 bg-white/10" />}
-    
-    {/* Node */}
-    <div className="absolute left-0 top-2 w-10 h-10 rounded-full bg-charcoal border-2 border-indigo-500/50 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-      <div className="w-2 h-2 rounded-full bg-indigo-500" />
-    </div>
+const TimelineItem: React.FC<TimelineItemProps> = ({ title, company, dates, description, tags, icon: Icon, isLast }) => {
+  const [isMobile, setIsMobile] = useState(false);
 
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      <GlassContainer className="p-6 md:p-8 group hover:bg-white/10 transition-all duration-500">
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <div className="relative pl-8 md:pl-12 pb-16">
+      {/* Vertical Line */}
+      {!isLast && <div className="absolute left-[19px] top-10 bottom-0 w-0.5 bg-white/10" />}
+      
+      {/* Node */}
+      <div className="absolute left-0 top-2 w-10 h-10 rounded-full bg-charcoal border-2 border-indigo-500/50 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+        <div className="w-2 h-2 rounded-full bg-indigo-500" />
+      </div>
+
+      <motion.div
+        initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+        transition={{ duration: isMobile ? 0 : 0.5 }}
+      >
+        <GlassContainer className="p-6 md:p-8 group hover:bg-white/10 transition-all duration-500">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
@@ -71,9 +89,10 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, company, dates, desc
           ))}
         </div>
       </GlassContainer>
-    </motion.div>
-  </div>
-);
+      </motion.div>
+    </div>
+  );
+};
 
 const RippleButton = ({ children, className = "", onClick, type = "button" }: { children: React.ReactNode, className?: string, onClick?: () => void, type?: "button" | "submit" }) => {
   const [ripples, setRipples] = useState<{ x: number, y: number, id: number }[]>([]);
@@ -127,6 +146,41 @@ const RippleButton = ({ children, className = "", onClick, type = "button" }: { 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('CAMERON');
+  const [isMobile, setIsMobile] = useState(false);
+  const [formStatus, setFormStatus] = useState<'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'>('IDLE');
+  const { scrollYProgress } = useScroll();
+  const martechX = useTransform(scrollYProgress, [0, 1], [0, -400]);
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('LOADING');
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const response = await fetch('https://formspree.io/f/xdkgnrjq', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        setFormStatus('SUCCESS');
+        (e.target as HTMLFormElement).reset();
+        setTimeout(() => setFormStatus('IDLE'), 5000);
+      } else {
+        setFormStatus('ERROR');
+      }
+    } catch (error) {
+      setFormStatus('ERROR');
+    }
+  };
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const sections = ['about', 'work', 'contact'];
@@ -195,6 +249,16 @@ export default function App() {
     }
   ];
 
+  const martechLogos = [
+    { name: 'WordPress', icon: Globe },
+    { name: 'Google Analytics', icon: BarChart3 },
+    { name: 'Mailchimp', icon: Mail },
+    { name: 'YouTube', icon: Youtube },
+    { name: 'Meta', icon: Infinity },
+    { name: 'Salesforce', icon: Cloud },
+    { name: 'Adobe', icon: PenTool },
+  ];
+
   return (
     <div className="min-h-screen relative overflow-hidden selection:bg-indigo-500/30">
       {/* Animated Background Blobs */}
@@ -209,7 +273,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl px-6 py-4 flex justify-between items-center shadow-lg">
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
+              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="text-xl font-bold tracking-tighter z-50 h-6 overflow-hidden flex items-center"
             >
@@ -231,7 +295,7 @@ export default function App() {
 
             {/* Desktop Menu */}
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
+              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               className="hidden md:flex gap-8"
             >
@@ -297,12 +361,8 @@ export default function App() {
       <main className="relative z-10 pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
-          <section id="hero" className="mb-48 scroll-mt-32">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+          <section id="hero" className="mb-12 md:mb-16 scroll-mt-32">
+            <div className="max-w-4xl">
               <span className="text-[12px] uppercase tracking-[0.3em] font-bold text-indigo-400 mb-6 block">
                 Hello, My name is
               </span>
@@ -324,19 +384,55 @@ export default function App() {
                   </RippleButton>
                 </a>
               </div>
-            </motion.div>
+            </div>
+          </section>
+
+          {/* Martech Logo Grid */}
+          <section className="mb-16 md:mb-24 relative">
+            <div className="overflow-hidden py-4">
+              <motion.div
+                style={{ x: martechX }}
+                className="flex flex-nowrap gap-12 md:gap-24 items-center whitespace-nowrap px-4"
+              >
+                {/* Duplicate logos for a continuous feel if needed, but here we just use the scroll link */}
+                {martechLogos.map((logo) => (
+                  <div 
+                    key={logo.name}
+                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
+                  >
+                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
+                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
+                  </div>
+                ))}
+                {/* Second set for longer scroll range visibility */}
+                {martechLogos.map((logo) => (
+                  <div 
+                    key={`${logo.name}-2`}
+                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
+                  >
+                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
+                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </section>
 
           {/* About Section */}
-          <section id="about" className="mb-48 scroll-mt-32">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <section id="about" className="mb-32 md:mb-48 scroll-mt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+              {/* Mobile Header */}
+              <h2 className="lg:hidden text-4xl font-bold tracking-tighter mb-4">About Me</h2>
+
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
+                initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+                transition={{ duration: isMobile ? 0 : 0.8 }}
+                className="order-2 lg:order-1"
               >
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-8">About Me</h2>
+                {/* Desktop Header */}
+                <h2 className="hidden lg:block text-4xl md:text-5xl font-bold tracking-tighter mb-8">About Me</h2>
                 <div className="space-y-6 text-white/70 leading-relaxed text-lg">
                   <p>
                     I enjoy collaborating with others to dig into data, understand trends, and use that information to guide effective strategies and achieve results.
@@ -352,22 +448,26 @@ export default function App() {
                   </p>
                 </div>
               </motion.div>
+
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="relative"
+                viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+                transition={{ duration: isMobile ? 0 : 0.8 }}
+                className="relative order-1 lg:order-2 w-full max-w-[90%] lg:max-w-full mx-auto"
               >
-                <GlassContainer className="aspect-square flex items-center justify-center p-12 relative overflow-hidden">
+                <GlassContainer className="aspect-square flex items-center justify-center p-4 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-rose-500/10" />
-                  <div className="relative z-10 text-center">
-                    <div className="text-8xl font-black text-white/5 mb-4 select-none">CY</div>
-                    <p className="text-white/40 font-mono text-sm tracking-widest">EST. VENTURA, CA</p>
+                  <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border border-white/10">
+                    <img 
+                      src="/portrait.webp" 
+                      alt="Cameron Yzaguirre - Marketing Operations Specialist" 
+                      className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
+                      referrerPolicy="no-referrer"
+                      loading="eager"
+                      fetchPriority="high"
+                    />
                   </div>
-                  {/* Decorative elements */}
-                  <div className="absolute top-10 right-10 w-20 h-20 border border-white/5 rounded-full animate-drift" />
-                  <div className="absolute bottom-10 left-10 w-32 h-32 border border-white/5 rounded-full animate-drift [animation-delay:-5s]" />
                 </GlassContainer>
               </motion.div>
             </div>
@@ -410,7 +510,7 @@ export default function App() {
                       <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                         <Mail className="w-5 h-5 text-indigo-400" />
                       </div>
-                      <span>Cameron.Yzaguirre@gmail.com</span>
+                      <span>cameron.yzaguirre@gmail.com</span>
                     </div>
                     <div className="flex items-center gap-4 text-white/80">
                       <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
@@ -421,23 +521,36 @@ export default function App() {
                   </div>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-white/40 ml-2">Name</label>
-                      <input type="text" placeholder="John Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors" />
+                      <input name="name" required type="text" placeholder="John Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-white/40 ml-2">Email</label>
-                      <input type="email" placeholder="john@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors" />
+                      <input name="email" required type="email" placeholder="john@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-white/40 ml-2">Message</label>
-                    <textarea rows={4} placeholder="Tell me about your project..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none" />
+                    <textarea name="message" required rows={4} placeholder="Tell me about your project..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none" />
                   </div>
-                  <RippleButton type="submit" className="w-full py-4 bg-indigo-500/20 border border-indigo-500/30 rounded-2xl font-semibold hover:bg-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
-                    Send Message
+                  <RippleButton 
+                    type="submit" 
+                    className={`w-full py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
+                      formStatus === 'SUCCESS' ? 'bg-emerald-500/20 border-emerald-500/30 text-emerald-400' :
+                      formStatus === 'ERROR' ? 'bg-rose-500/20 border-rose-500/30 text-rose-400' :
+                      'bg-indigo-500/20 border-indigo-500/30 hover:bg-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.2)]'
+                    }`}
+                  >
+                    {formStatus === 'LOADING' && <Loader2 className="w-5 h-5 animate-spin" />}
+                    {formStatus === 'SUCCESS' && <CheckCircle2 className="w-5 h-5" />}
+                    {formStatus === 'ERROR' && <AlertCircle className="w-5 h-5" />}
+                    {formStatus === 'IDLE' && 'Send Message'}
+                    {formStatus === 'LOADING' && 'Sending...'}
+                    {formStatus === 'SUCCESS' && 'Message Sent!'}
+                    {formStatus === 'ERROR' && 'Something went wrong'}
                   </RippleButton>
                 </form>
               </div>
