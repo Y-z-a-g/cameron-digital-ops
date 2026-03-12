@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 const GlassContainer = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  <div className={`backdrop-blur-[40px] bg-white/5 border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] ${className}`}>
+  <div className={`backdrop-blur-md md:backdrop-blur-[40px] bg-white/5 border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] will-change-[backdrop-filter] ${className}`}>
     {children}
   </div>
 );
@@ -57,8 +57,8 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, company, dates, desc
 
       <motion.div
         initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+        whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: isMobile ? 0 : 0.5 }}
       >
         <GlassContainer className="p-6 md:p-8 group hover:bg-white/10 transition-all duration-500">
@@ -395,8 +395,8 @@ export default function App() {
 
               <motion.div
                 initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+                whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: isMobile ? 0 : 0.8 }}
                 className="order-2 lg:order-1"
               >
@@ -420,8 +420,8 @@ export default function App() {
 
               <motion.div
                 initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: isMobile ? 0.05 : 0.3 }}
+                whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: isMobile ? 0 : 0.8 }}
                 className="relative order-1 lg:order-2 w-full"
               >
