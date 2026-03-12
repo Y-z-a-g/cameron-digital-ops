@@ -57,6 +57,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, company, dates, desc
 
       <motion.div
         initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+        animate={isMobile ? { opacity: 1, x: 0 } : undefined}
         whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: isMobile ? 0 : 0.5 }}
@@ -186,19 +187,19 @@ export default function App() {
     const sections = ['about', 'work', 'contact'];
     
     const handleScroll = () => {
-      if (window.scrollY < 100) {
+      if (window.scrollY < 50) {
         setActiveSection('CAMERON');
       }
     };
 
     const observerOptions = {
       root: null,
-      rootMargin: '-50% 0px -50% 0px',
+      rootMargin: '-40% 0px -40% 0px',
       threshold: 0
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      if (window.scrollY >= 100) {
+      if (window.scrollY >= 50) {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id.toUpperCase());
@@ -361,7 +362,7 @@ export default function App() {
       <main className="relative z-10 pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
-          <section id="hero" className="md:min-h-[80vh] flex flex-col justify-center mb-12 md:mb-16 scroll-mt-32">
+          <section id="hero" className="min-h-[85vh] flex flex-col justify-center mb-12 md:mb-16 scroll-mt-32">
             <div className="max-w-4xl">
               <span className="text-[12px] uppercase tracking-[0.3em] font-bold text-indigo-400 mb-6 block">
                 Hello, My name is
@@ -395,6 +396,7 @@ export default function App() {
 
               <motion.div
                 initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                animate={isMobile ? { opacity: 1, x: 0 } : undefined}
                 whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: isMobile ? 0 : 0.8 }}
@@ -420,6 +422,7 @@ export default function App() {
 
               <motion.div
                 initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
                 whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: isMobile ? 0 : 0.8 }}
