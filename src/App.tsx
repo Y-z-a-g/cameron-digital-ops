@@ -405,18 +405,24 @@ export default function App() {
                 {/* Desktop Header */}
                 <h2 className="hidden lg:block text-4xl md:text-5xl font-bold tracking-tighter mb-8">About Me</h2>
                 <div className="space-y-6 text-white/70 leading-relaxed text-lg">
-                  <p>
-                    I enjoy collaborating with others to dig into data, understand trends, and use that information to guide effective strategies and achieve results.
+                  <p className="italic text-white/40">
+                    "I bet he used a template for this site..."
                   </p>
                   <p>
-                    My career started at <a href="https://visitventuraca.com/" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Visit Ventura</a>, where I advanced from supporting marketing/sales operations to the role of Content Specialist. In this position, I managed a wide range of digital marketing initiatives including driving social media growth, executing paid ad campaigns, producing multimedia content, and maintaining the website.
+                    Actually, I built this using <span className="font-bold text-white">Google AI Studio</span>, managed version control with <span className="font-bold text-white">GitHub</span>, and deployed through <span className="font-bold text-white">Vercel</span>. Understanding the systems and logic behind the operations is my approach to Marketing. I want to build the <span className="font-bold text-white">infrastructure</span> that makes marketing work.
                   </p>
                   <p>
-                    Before that, I created <a href="https://www.youtube.com/@Leafyradio" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Leafy Radio</a> from scratch. That experience taught me how important audience feedback is for making creative decisions. Now, I'm focused on improving my data analysis skills and exploring new digital platforms.
+                    My professional career started at <a href="https://visitventuraca.com/" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Visit Ventura</a>. Within <span className="font-bold text-white">8 months</span>, I was promoted from an assistant role to <span className="font-bold text-white">Content Specialist</span>. Throughout my time there, I managed the lifecycle of <span className="font-bold text-white">digital initiatives</span>—ranging from <span className="font-bold text-white">paid ad management</span> and multimedia production to <span className="font-bold text-white">technical website maintenance</span>—with my level of ownership and responsibility increasing significantly as I moved into my specialist role.
                   </p>
-                  <p className="italic text-white/50">
-                    Outside of work, you'll usually find me outdoors running or hiking, usually with support from my black lab, Bailey.
+                  <p>
+                    Before that, I built <a href="https://www.youtube.com/@Leafyradio" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-indigo-400 underline underline-offset-4 decoration-white/20 hover:decoration-indigo-400/50 transition-all">Leafy Radio</a> from the ground up. Scaling an independent platform to <span className="font-bold text-white">360k subscribers</span> taught me that the best creative decisions are usually driven by <span className="font-bold text-white">audience data</span>.
                   </p>
+                  <div className="pt-4 border-t border-white/5">
+                    <p className="font-bold text-white mb-2">What I’m looking for next:</p>
+                    <p>
+                      I’m looking to grow into the technical side of <span className="font-bold text-white">marketing and content operations</span> without limiting my potential. I want to solve creative and technical challenges within a culture that prioritizes professional respect and efficient, sustainable processes.
+                    </p>
+                  </div>
                 </div>
               </motion.div>
 
