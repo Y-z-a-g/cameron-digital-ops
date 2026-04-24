@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Github, 
   Linkedin, 
@@ -7,6 +7,7 @@ import {
   ArrowRight,
   FileText,
   Briefcase,
+  Video,
   Youtube,
   GraduationCap,
   Globe,
@@ -14,6 +15,9 @@ import {
   Infinity,
   Cloud,
   PenTool,
+  Share2,
+  Sparkles,
+  Clapperboard,
   CheckCircle2,
   AlertCircle,
   Loader2
@@ -149,8 +153,6 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('CAMERON');
   const [isMobile, setIsMobile] = useState(false);
   const [formStatus, setFormStatus] = useState<'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'>('IDLE');
-  const { scrollYProgress } = useScroll();
-  const martechX = useTransform(scrollYProgress, [0, 1], [0, -400]);
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -225,12 +227,20 @@ export default function App() {
 
   const workExperience = [
     {
+      title: "Independent Marketing Consultant",
+      company: "Freelance",
+      dates: "Jan 2026 – Present",
+      description: "Directed organic growth strategy for financial services, pivoting to high-performing video content. Achieved a 4,600% surge in non-follower interactions and 171% increase in engagement within 30 days.",
+      tags: ["Digital Strategy", "Content Optimization", "Instagram", "Facebook", "Analytics"],
+      icon: Briefcase
+    },
+    {
       title: "Digital Content Specialist / Assistant",
       company: "Visit Ventura",
       dates: "April 2024 – March 2025",
       description: "Managed high-volume content creation and multi-channel scheduling while overseeing the Simpleview CRM database. Streamlined digital asset workflows and Mailchimp automation to drive engagement and operational efficiency.",
       tags: ["CRM", "Mailchimp", "WordPress", "SEO", "Adobe", "Content Scheduling"],
-      icon: Briefcase
+      icon: Video
     },
     {
       title: "Founder & Content Strategist",
@@ -254,19 +264,21 @@ export default function App() {
     { name: 'WordPress', icon: Globe },
     { name: 'Google Analytics', icon: BarChart3 },
     { name: 'Mailchimp', icon: Mail },
-    { name: 'YouTube', icon: Youtube },
+    { name: 'Social Media', icon: Share2 },
     { name: 'Meta', icon: Infinity },
-    { name: 'Salesforce', icon: Cloud },
-    { name: 'Adobe', icon: PenTool },
+    { name: 'Simpleview CRM', icon: Cloud },
+    { name: 'Adobe CC', icon: PenTool },
+    { name: 'Prompt Engineering', icon: Sparkles },
+    { name: 'Final Cut Pro', icon: Clapperboard },
   ];
 
   return (
     <div className="min-h-screen relative overflow-hidden selection:bg-indigo-500/30">
-      {/* Animated Background Blobs */}
+      {/* Background Blobs (Static) */}
       <div className="fixed inset-0 -z-10 bg-charcoal">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/20 blur-[120px] animate-drift animate-morph" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-rose-600/20 blur-[120px] animate-drift animate-morph [animation-delay:-5s]" />
-        <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-emerald-600/20 blur-[120px] animate-drift animate-morph [animation-delay:-10s]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/20 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-rose-600/20 blur-[120px] rounded-full" />
+        <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-emerald-600/20 blur-[120px] rounded-full" />
       </div>
 
       {/* Navigation */}
@@ -459,32 +471,18 @@ export default function App() {
 
           {/* Martech Logo Grid */}
           <section className="mb-16 md:mb-24 relative">
-            <div className="overflow-hidden py-4">
-              <motion.div
-                style={{ x: martechX }}
-                className="flex flex-nowrap gap-12 md:gap-24 items-center whitespace-nowrap px-4"
-              >
-                {/* Duplicate logos for a continuous feel if needed, but here we just use the scroll link */}
-                {martechLogos.map((logo) => (
-                  <div 
-                    key={logo.name}
-                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
-                  >
-                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
-                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
-                  </div>
-                ))}
-                {/* Second set for longer scroll range visibility */}
-                {martechLogos.map((logo) => (
-                  <div 
-                    key={`${logo.name}-2`}
-                    className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group shrink-0"
-                  >
-                    <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
-                    <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white">{logo.name}</span>
-                  </div>
-                ))}
-              </motion.div>
+            <div className="flex flex-wrap justify-center gap-x-12 gap-y-8 md:gap-x-20 py-4">
+              {martechLogos.map((logo) => (
+                <div 
+                  key={logo.name}
+                  className="flex items-center gap-3 opacity-30 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 cursor-default group"
+                >
+                  <logo.icon className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:text-indigo-400 transition-colors" />
+                  <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] font-bold text-white whitespace-nowrap">
+                    {logo.name}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
 
