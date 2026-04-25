@@ -274,12 +274,17 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative overflow-hidden selection:bg-indigo-500/30">
-      {/* Background Blobs (Static) */}
-      <div className="fixed inset-0 -z-10 bg-charcoal">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-rose-600/20 blur-[120px] rounded-full" />
-        <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-emerald-600/20 blur-[120px] rounded-full" />
-      </div>
+      {/* Background (Static Gradient Blobs - Resource Efficient) */}
+      <div 
+        className="fixed inset-0 -z-10 bg-charcoal"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 90% 90%, rgba(225, 29, 72, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.1) 0%, transparent 40%)
+          `
+        }}
+      />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
